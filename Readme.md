@@ -1,86 +1,137 @@
-🏥 Clinic Management SystemA robust Java-based application designed to streamline daily clinic operations. This system efficiently handles patient records, appointment scheduling, and data persistence using file handling.📋 Table of ContentsOverviewFeaturesTech StackSystem ArchitectureScreenshotsGetting StartedProject StructureFuture ScopeContributingContact📖 OverviewThe Clinic Management System acts as a digital receptionist for healthcare clinics. It replaces manual paper records with a digital solution, allowing administrators to:Register and manage patients.Schedule and track appointments.Automatically save data to local storage (.dat files) so no records are lost upon closing the application.This project was developed for the Vityarthi Project.⚙️ Features👨‍⚕️ Patient Management: Add new patient details (Name, Age, Contact) and maintain a digital registry.📅 Appointment Scheduling: Book new appointments and link them to registered patients.💾 Data Persistence: Uses Java Serialization to store data in patients.dat and appointments.dat, ensuring data remains available across sessions.🔍 View Records: Browse through patient history and upcoming appointments.🛠️ Tech StackLanguage: Java (JDK 8+)Core Concepts: Object-Oriented Programming (OOP), Collection Frameworks, File I/O, Serialization.Tools: Git, GitHub.📊 System Architecture (Mermaid Diagrams)1. Class DiagramThis diagram illustrates the structure of the application and how the core classes interact. The ClinicManager acts as the central controller.classDiagram
-    class MainApplication {
-        +main(String[] args)
-        +startApplication()
-    }
+# 🏥 Clinic Management System
 
-    class ClinicManager {
-        -List~Patient~ patients
-        -List~Appointment~ appointments
-        +addPatient(Patient p)
-        +bookAppointment(Appointment a)
-        +saveData()
-        +loadData()
-    }
+![Java](https://img.shields.io/badge/Language-Java-orange.svg)
+![Status](https://img.shields.io/badge/Status-Active-green.svg)
 
-    class Patient {
-        -String id
-        -String name
-        -int age
-        -String contact
-        +getDetails()
-    }
 
-    class Appointment {
-        -String appointmentId
-        -String patientId
-        -Date date
-        -String doctorName
-    }
+> **A Vityarthi Project** > A robust Java-based application designed to streamline daily clinic operations using Object-Oriented principles and File Persistence.
 
-    MainApplication --> ClinicManager : uses
-    ClinicManager "1" *-- "many" Patient : manages
-    ClinicManager "1" *-- "many" Appointment : schedules
-    Appointment --> Patient : refers to
-2. User FlowchartA typical workflow of how a user interacts with the system.graph TD
-    A[Start Application] --> B{Main Menu}
-    B -->|1| C[Add Patient]
-    B -->|2| D[Book Appointment]
-    B -->|3| E[View Records]
-    B -->|4| F[Exit]
-    
-    C --> C1[Enter Details]
-    C1 --> C2[Save to patients.dat]
-    C2 --> B
-    
-    D --> D1[Select Patient]
-    D1 --> D2[Enter Date & Doctor]
-    D2 --> D3[Save to appointments.dat]
-    D3 --> B
-    
-    E --> E1[Display List]
-    E1 --> B
-    
-    F --> G[Save All State]
-    G --> H[Terminate]
-3. Booking SequenceHow an appointment booking request is processed internally.sequenceDiagram
-    participant User
-    participant MainApp
-    participant Manager as ClinicManager
-    participant FileDB as .dat Files
+---
 
-    User->>MainApp: Select "Book Appointment"
-    MainApp->>Manager: requestPatientList()
-    Manager-->>MainApp: returns List<Patient>
-    MainApp->>User: Show Patients
-    User->>MainApp: Select Patient & Date
-    MainApp->>Manager: createAppointment(details)
-    Manager->>Manager: Validate Availability
-    Manager->>FileDB: Serialization (Save)
-    FileDB-->>Manager: Success
-    Manager-->>MainApp: Confirmation
-    MainApp-->>User: "Appointment Booked!"
-📸 ScreenshotsAdd screenshots of your application running here to show the interface.Main MenuPatient Registration<img src="Screenshots/main_menu.png" alt="Main Menu" width="300"><img src="Screenshots/add_patient.png" alt="Add Patient" width="300">(Replace the paths above with your actual screenshot filenames)🚀 Getting StartedFollow these instructions to set up the project on your local machine.PrerequisitesJava Development Kit (JDK) installed (Version 8 or higher).A terminal or IDE (VS Code, IntelliJ IDEA, Eclipse).Installation & RunClone the Repositorygit clone [https://github.com/Aman35256/Clinic.git](https://github.com/Aman35256/Clinic.git)
-cd Clinic
-Compile the Source Codejavac *.java
-Run the Applicationjava MainApplication
-📂 Project StructureClinic/
-├── MainApplication.java  # Entry point of the program
-├── ClinicManager.java    # Logic for managing patients & appointments
-├── Patient.java          # Model class for Patient data
-├── Appointment.java      # Model class for Appointment data
-├── patients.dat          # Data file storing patient records
-├── appointments.dat      # Data file storing appointment records
-├── Screenshots/          # Folder containing app previews
-└── Readme.md             # Project documentation
-🔮 Future ScopeTo further enhance this project, the following features can be added:Database Integration: Replace file handling with MySQL or PostgreSQL for better scalability.Graphical User Interface (GUI): Implement a UI using JavaFX or Swing.Authentication: Add login functionality for doctors and receptionists.Prescriptions: Allow doctors to generate and print digital prescriptions.🤝 ContributingContributions are welcome! Please fork the repository and create a pull request.Fork the ProjectCreate your Feature Branch (git checkout -b feature/AmazingFeature)Commit your Changes (git commit -m 'Add some AmazingFeature')Push to the Branch (git push origin feature/AmazingFeature)Open a Pull Request📞 ContactAuthor: Aman35256Project Link: https://github.com/Aman35256/Clinic
+## 📖 Overview
+
+The **Clinic Management System** acts as a digital receptionist for healthcare clinics. It replaces manual paper records with a comprehensive digital solution. 
+
+Unlike complex database-driven apps, this project utilizes **Java Serialization** to ensure data persistence without the need for external SQL servers—making it lightweight and portable.
+
+**Key capabilities include:**
+* Registering and managing patient profiles.
+* Scheduling and tracking appointments.
+* **Automatic Data Persistence:** Saving records to local storage (`.dat` files) so no data is lost when the application closes.
+
+## 🧠 System Architecture
+
+The following diagram illustrates how the application manages data flow from the user interface to the local file storage.
+
+```mermaid
+graph TD
+    subgraph Interface
+    User((User)) -->|Console Input| Main[MainApplication.java]
+    end
+
+    subgraph Logic Layer
+    Main -->|Invokes| Manager[ClinicManager.java]
+    Manager -->|Instantiates| P[Patient Object]
+    Manager -->|Instantiates| A[Appointment Object]
+    end
+
+    subgraph Persistence Layer
+    Manager -->|Serialization| D1[(patients.dat)]
+    Manager -->|Serialization| D2[(appointments.dat)]
+    D1 -.->|Deserialization| Manager
+    D2 -.->|Deserialization| Manager
+    end
+
+    style Main fill:##000000,stroke:#333,stroke-width:2px
+    style Manager fill:##000000,stroke:#333,stroke-width:2px
+    style D1 fill:##000000,stroke:#333,stroke-width:2px
+    style D2 fill:##000000,stroke:#333,stroke-width:2px
+````
+
+## ⚙️ Key Features
+
+  * **👨‍⚕️ Patient Management** Add new patient details (Name, Age, Contact, Symptoms) and maintain a digital registry.
+  * **📅 Appointment Scheduling** Book new appointments and link them efficiently to registered patients.
+  * **💾 Data Persistence** Uses `ObjectOutputStream` and `ObjectInputStream` to store data in `patients.dat` and `appointments.dat`.
+  * **🔍 View Records** Browse through patient history and upcoming appointments via the console interface.
+
+## 🛠️ Tech Stack
+
+| Category | Technology Used |
+| :--- | :--- |
+| **Language** | Java (JDK 8+) |
+| **Core Concepts** | OOP, Collection Framework (ArrayList/HashMap), Exception Handling |
+| **Persistence** | File I/O & Java Serialization |
+| **Version Control** | Git & GitHub |
+
+## 📂 Project Structure
+
+```text
+Clinic/
+├── src/
+│   ├── MainApplication.java   # Entry point; handles user menu
+│   ├── ClinicManager.java     # Business logic (add, save, load methods)
+│   ├── Patient.java           # Model class (implements Serializable)
+│   └── Appointment.java       # Model class (implements Serializable)
+├── data/
+│   ├── patients.dat           # Binary file storing patient records
+│   └── appointments.dat       # Binary file storing appointment records
+├── screenshots/               # App previews
+└── README.md                  # Project documentation
+```
+
+## 🚀 Getting Started
+
+Follow these instructions to set up the project on your local machine.
+
+### Prerequisites
+
+  * **Java Development Kit (JDK)** installed (Version 8 or higher).
+  * A terminal or IDE (VS Code, IntelliJ IDEA, Eclipse).
+
+### Installation & Run
+
+1.  **Clone the Repository**
+
+    ```bash
+    git clone [https://github.com/Aman35256/Clinic.git](https://github.com/Aman35256/Clinic.git)
+    cd Clinic
+    ```
+
+2.  **Compile the Source Code**
+
+    ```bash
+    javac *.java
+    ```
+
+3.  **Run the Application**
+
+    ```bash
+    java MainApplication
+    ```
+
+## 🔮 Future Scope
+
+To further enhance this project, the following features are planned:
+
+  * [ ] **Database Integration:** Replace file handling with MySQL/PostgreSQL for high-volume scalability.
+  * [ ] **GUI Implementation:** Build a user-friendly interface using JavaFX or Swing.
+  * [ ] **Authentication:** Add login functionality for distinct roles (Doctor vs. Receptionist).
+  * [ ] **Prescriptions:** Allow doctors to generate and print digital prescriptions.
+
+## 🤝 Contributing
+
+Contributions are welcome\! Please fork the repository and create a pull request.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+## 📞 Contact
+
+**Aman35256** Project Link: [https://github.com/Aman35256/Clinic](https://github.com/Aman35256/Clinic)
+
+
+Made with Love❤️❤️
