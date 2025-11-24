@@ -11,7 +11,6 @@ public class Patient implements Serializable {
         this.contactNumber = contactNumber;
     }
 
-    // Getters
     public String getId() {
         return id;
     }
@@ -24,7 +23,6 @@ public class Patient implements Serializable {
         return contactNumber;
     }
 
-    // Setter (for updating contact, if needed)
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }

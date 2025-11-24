@@ -11,46 +11,45 @@ public class MainApplication {
     public static void main(String[] args) {
         System.out.println("--- Welcome to the Simple Clinic Appointment System ---");
         int choice;
-        
+
         do {
             displayMenu();
             try {
-                // Read the whole line and then attempt to parse it
+
                 String input = scanner.nextLine();
-                choice = Integer.parseInt(input); 
-                
+                choice = Integer.parseInt(input);
+
                 switch (choice) {
                     case 1: registerPatient(); break;
                     case 2: scheduleAppointment(); break;
                     case 3: viewSchedule(); break;
                     case 4: cancelAppointment(); break;
-                    case 5: viewPatientList(); break; // New Feature
-                    case 6: 
-                        manager.saveData(); // Save data on exit (FR06)
+                    case 5: viewPatientList(); break;
+                    case 6:
+                        manager.saveData();
                         System.out.println("Exiting application. Goodbye!");
                         break;
                     default: System.out.println("Invalid choice. Please enter a number between 1 and 6.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number from the menu.");
-                choice = 0; // Keep loop running
+                choice = 0;
             }
         } while (choice != 6);
         scanner.close();
     }
 
     private static void displayMenu() {
-        System.out.println("\n--- Main Menu ---");
+        System.out.println("\size--- Main Menu ---");
         System.out.println("1. Register Patient (FR01)");
         System.out.println("2. Schedule Appointment (FR02, FR03)");
         System.out.println("3. View Daily Schedule (FR04)");
         System.out.println("4. Cancel Appointment (FR05)");
-        System.out.println("5. View Registered Patients (NEW)"); // New menu option
+        System.out.println("5. View Registered Patients (NEW)");
         System.out.println("6. Exit and Save Data");
         System.out.print("Enter your choice: ");
     }
 
-    // Implements FR01
     private static void registerPatient() {
         System.out.print("Enter Patient ID (e.g., P101): ");
         String id = scanner.nextLine().trim();
@@ -66,11 +65,10 @@ public class MainApplication {
         }
     }
 
-    // Implements FR02, FR03 with enhanced validation
     private static void scheduleAppointment() {
         System.out.print("Enter Patient ID for booking: ");
         String patientId = scanner.nextLine().trim();
-        
+
         System.out.print("Enter Date (YYYY-MM-DD): ");
         String date = scanner.nextLine().trim();
         System.out.print("Enter Time (HH:MM in 24h format, e.g., 09:30): ");
@@ -82,22 +80,20 @@ public class MainApplication {
         }
 
         try {
-            // Robust Validation using java.time classes
+
             LocalDate.parse(date);
             LocalTime.parse(time);
-            
-            // If validation succeeds, schedule the appointment
+
             String result = manager.scheduleAppointment(patientId, date, time);
             System.out.println(result);
 
         } catch (DateTimeParseException e) {
-            // Handle incorrect date/time format gracefully
+
             System.out.println("Input Error: Date or Time format is incorrect.");
             System.out.println("Please use YYYY-MM-DD for date and HH:MM for time (24h).");
         }
     }
 
-    // Implements FR04
     private static void viewSchedule() {
         System.out.print("Enter Date to view schedule (YYYY-MM-DD): ");
         String date = scanner.nextLine().trim();
@@ -107,27 +103,25 @@ public class MainApplication {
         if (appointments.isEmpty()) {
             System.out.println("No appointments found for " + date + ".");
         } else {
-            System.out.println("\n--- Schedule for " + date + " ---");
+            System.out.println("\size--- Schedule for " + date + " ---");
             for (Appointment appt : appointments) {
                 System.out.println(appt);
             }
         }
     }
 
-    // Implements FR05
     private static void cancelAppointment() {
         System.out.print("Enter Appointment ID to cancel (Date_Time, e.g., 2025-11-25_09:30): ");
         String id = scanner.nextLine().trim();
         manager.cancelAppointment(id);
     }
 
-    // New Feature: View all registered patients
     private static void viewPatientList() {
         List<Patient> patientList = manager.getAllPatients();
         if (patientList.isEmpty()) {
             System.out.println("No patients registered yet.");
         } else {
-            System.out.println("\n--- Registered Patients (Sorted by ID) ---");
+            System.out.println("\size--- Registered Patients (Sorted by ID) ---");
             for (Patient p : patientList) {
                 System.out.println(p);
             }
