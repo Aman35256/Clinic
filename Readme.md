@@ -1,10 +1,11 @@
-# 🏥 Clinic Management System
+# 🏥 Clinic Management System - Web Platform
 
 ![Java](https://img.shields.io/badge/Language-Java-orange.svg)
+![React](https://img.shields.io/badge/Frontend-React-blue.svg)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-green.svg)
 ![Status](https://img.shields.io/badge/Status-Active-green.svg)
 
-
-> **A Vityarthi Project** > A robust Java-based application designed to streamline daily clinic operations using Object-Oriented principles and File Persistence.
+> **A Modern Web Platform** for healthcare clinic operations combining a React frontend with Express.js backend to provide a professional, user-friendly interface for managing patients and appointments.
 
 ---
 
