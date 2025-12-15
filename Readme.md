@@ -87,59 +87,6 @@ graph TD
     style G fill:#61dafb,stroke:#333,color:#000
 ```
 
----
-
-## 🔌 API Endpoints
-
-```mermaid
-graph LR
-    A["API Server<br/>localhost:5000"] -->|GET| B["📋 /api/patients<br/>Get all patients"]
-    A -->|POST| C["➕ /api/patients<br/>Register new patient"]
-    A -->|GET| D["📅 /api/appointments<br/>Get all appointments"]
-    A -->|POST| E["📅 /api/appointments<br/>Schedule appointment"]
-    A -->|DELETE| F["❌ /api/appointments/:id<br/>Cancel appointment"]
-    A -->|GET| G["📊 /api/appointments<br/>View daily schedule"]
-    
-    style A fill:#90c53f,stroke:#333,color:#fff
-    style B fill:#4db8ff,stroke:#333,color:#fff
-    style C fill:#4db8ff,stroke:#333,color:#fff
-    style D fill:#9c27b0,stroke:#333,color:#fff
-    style E fill:#9c27b0,stroke:#333,color:#fff
-    style F fill:#f44336,stroke:#333,color:#fff
-    style G fill:#9c27b0,stroke:#333,color:#fff
-```
-
----
-
-## 🎨 Frontend Components
-
-```mermaid
-graph TD
-    A["App.jsx<br/>(Main Router)"] -->|Navigation| B["Navigation.jsx<br/>(Tab Menu)"]
-    A -->|Route| C["PatientRegistration.jsx<br/>(Form)"]
-    A -->|Route| D["AppointmentScheduling.jsx<br/>(Scheduler)"]
-    A -->|Route| E["ViewSchedule.jsx<br/>(Daily View)"]
-    A -->|Route| F["PatientList.jsx<br/>(Search & Filter)"]
-    
-    C -->|API Call| G["api.js<br/>(Axios Client)"]
-    D -->|API Call| G
-    E -->|API Call| G
-    F -->|API Call| G
-    
-    G -->|HTTP| H["Express Backend<br/>(Port 5000)"]
-    
-    style A fill:#61dafb,stroke:#333,color:#000
-    style B fill:#4db8ff,stroke:#333,color:#fff
-    style C fill:#4db8ff,stroke:#333,color:#fff
-    style D fill:#4db8ff,stroke:#333,color:#fff
-    style E fill:#4db8ff,stroke:#333,color:#fff
-    style F fill:#4db8ff,stroke:#333,color:#fff
-    style G fill:#ff9800,stroke:#333,color:#fff
-    style H fill:#90c53f,stroke:#333,color:#fff
-```
-
----
-
 ## ⚡ User Journey
 
 ```mermaid
@@ -228,40 +175,6 @@ Clinic/
     ├── ClinicManager.java
     └── MainApplication.java
 ```
-
-## 🚀 Deployment Architecture
-
-```mermaid
-graph TB
-    A["💻 Development<br/>(Local Machine)"] -->|Docker| B["🐳 Docker Container"]
-    A -->|Deploy| C["Heroku"]
-    A -->|Deploy| D["AWS"]
-    A -->|Deploy| E["DigitalOcean"]
-    A -->|Deploy| F["Azure"]
-    
-    B -->|Run| G["Frontend<br/>React App"]
-    B -->|Run| H["Backend<br/>Express API"]
-    
-    C -->|Deploy| I["Frontend<br/>+ Backend"]
-    D -->|Deploy| I
-    E -->|Deploy| I
-    F -->|Deploy| I
-    
-    I -->|Connect| J["🗄️ Database<br/>PostgreSQL/MongoDB"]
-    
-    style A fill:#667eea,stroke:#333,color:#fff
-    style B fill:#764ba2,stroke:#333,color:#fff
-    style C fill:#ff9800,stroke:#333,color:#fff
-    style D fill:#ff9800,stroke:#333,color:#fff
-    style E fill:#ff9800,stroke:#333,color:#fff
-    style F fill:#ff9800,stroke:#333,color:#fff
-    style G fill:#61dafb,stroke:#333,color:#000
-    style H fill:#90c53f,stroke:#333,color:#fff
-    style I fill:#667eea,stroke:#333,color:#fff
-    style J fill:#4db8ff,stroke:#333,color:#fff
-```
-
----
 
 ## 🚀 Quick Start
 
